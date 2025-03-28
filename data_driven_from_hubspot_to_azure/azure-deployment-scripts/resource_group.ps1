@@ -19,7 +19,7 @@ if (!$context) {
     Connect-AzAccount
 }
 
-# Create the resource group
+# Create the resource groups
 Write-Host "Creating resource group '$resourceGroupName' in location '$location'..."
 New-AzResourceGroup -Name $resourceGroupName -Location $location -Tag $tags -Force
 
