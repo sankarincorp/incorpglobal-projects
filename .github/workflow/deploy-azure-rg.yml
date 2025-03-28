@@ -1,0 +1,29 @@
+name: Deploy Azure Resource Group
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:  # Allows manual triggering of the workflow
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
+    - name: Azure PowerShell Action
+      uses: azure/powershell@v1
+      with:
+        inlineScript: |
+          # Run the resource group creation script
+          ./azure-deployment-scripts/resource_group.ps1
+        azPSVersion: 'latest'
